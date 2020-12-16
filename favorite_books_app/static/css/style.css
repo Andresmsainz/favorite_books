@@ -1,0 +1,75 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    outline: 1px dashed red;
+    font-family: sans-serif;
+    }
+#login {
+    background-color: palegoldenrod;
+}
+    #login h2 {
+        margin-left: 730px;
+    }
+
+    #login div {
+        vertical-align: top;
+        width: 400px;
+        display: inline-block;
+        margin-left: 300px;
+    }
+
+    #login div label{
+        width: 100px;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    #login div input{
+        width: 200px;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    #messages {
+        margin-left: 0px;
+        color: red;
+    }
+#login_success {
+    background-color: palegoldenrod;    
+}
+
+    #login_success p {
+        display: inline-block;
+    }
+
+    #login_success div {
+        display: inline-block;
+        margin-right: 20px;
+        margin-left: 150px;
+        vertical-align: top;
+    }
+
+    #createbook {
+        display: inline-block;
+        width: 500px;
+    }
+
+    #displaybooks {
+        width: 500px;
+    }
+
+#view_book{
+    background-color: palegoldenrod;
+}
+
+    #view_book p {
+        display: inline-block;
+    }
+
+    #view_book div {
+        display: inline-block;
+        margin-right: 20px;
+        margin-left: 150px;
+        vertical-align: top;
+        width: 500px;
+    }

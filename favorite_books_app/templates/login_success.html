@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login Success</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body id="login_success">
+    <h2>Login Success</h2>
+
+    <p>Welcome {{user.first_name}}</p>
+    <br>
+    <a href="/logout">Log Out</a>
+    <br>
+    {% if messages %}
+        <ul>    
+            {% for message in messages %}    
+                <li id="messages">{{ message }}</li>    
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div id="createbook">
+        <h4>Add a Favorite Book</h4>
+        <form action="/create_book" method="POST">
+            {% csrf_token %}
+            <label>Title</label>
+            <input name="title" type="text">
+            <br>
+            <td>
+                <p>Description</p>
+                <br>
+                <textarea name="description" id="description" cols="40" rows="5"></textarea>
+            </td>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="displaybooks">
+        <h2>All Books</h2>
+        {% for book in books %}
+            <h3><a href="/show_book/{{book.id}}">{{book.title}}</a></h3> 
+            <h4>(Added By {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}})</h3>
+            {% if user in book.users_who_like.all %}
+                <h5>This is one of your favorites</h5>
+            {% else %}
+                <h5><a href="/add_to_favorites/{{book.id}}">Add to Favorites</a></h5>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>

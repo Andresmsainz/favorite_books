@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Favorite Books</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body id="view_book">
+    <h2>View Book</h2>
+
+    <p>Welcome {{user.first_name}}</p>
+    <br>
+    <a href="/logout">Log Out</a>
+    <br>
+    {% if messages %}
+        <ul>    
+            {% for message in messages %}    
+                <li id="messages">{{ message }}</li>    
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div id="display_book">
+        <form action="update_book/{{book.id}}" method="POST">
+            {% csrf_token %}
+            {% if book.uploaded_by.id != request.session.user_id %}
+                <h2>{{book.title}}</h2>
+            {% else %}
+                <input name="title" type="text" value="{{book.title}}">
+            {% endif %}
+
+            <h4>Added By: {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}}</h4>
+            <h4>Added On: {{book.created_at}}</h4>
+            <h4>Last Updated On: {{book.updated_at}}</h4>
+
+            {% if book.uploaded_by.id != request.session.user_id %}
+                <h3>Description: {{book.description}}</h3>
+            {% else %}
+                <textarea name="description" id="description"  cols="40" rows="5">{{book.description}}</textarea>
+                <br>
+                <button type="submit">Update</button>
+                <a href="/delete_book/{{book.id}}" role="button">Delete</a>
+                
+            {% endif %}
+        </form>
+    </div>
+
+    <div id="users_who_like">
+        <h2>Users Who Like This Book</h2>
+        {% for user in book.users_who_like.all %}
+            <p>{{user.first_name}} {{user.last_name}}</p>
+            {% if user.id == request.session.user_id %}
+                <a href="/unfavorite_book/{{book.id}}" role="button">Un-Favorite</a>
+            {% endif %}
+            <br>
+        {% endfor %}
+
+        {% if user not in book.users_who_like.all %}
+            <h5><a href="/add_to_favorites/{{book.id}}">Add to Favorites</a></h5>
+        {% endif %}
+    </div>
+</body>
+</html>

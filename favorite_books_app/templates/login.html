@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login and Registration</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body id="login">
+    <h2>Login And Registration</h2>
+    {% if messages %}
+        <ul class="messages">    
+            {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+    <div>
+        <h3>Registration</h3>
+
+        <form action="/register" method="POST">
+            {% csrf_token %}
+            <label>First Name</label>
+            <input name="firstname" type="text">
+            <br>
+            <label>Last Name</label>
+            <input name="lastname" type="text">
+            <br>
+            <label>Email</label>
+            <input name="email" type="text">
+            <br>
+            <label>Password</label>
+            <input name="password" type="text">
+            <br>
+            <label>Confirm PWD</label>
+            <input name="confirmpassword" type="text">
+            <br>
+            <button type="submit">Register</button>
+        </form>
+
+    </div>
+
+    <div>
+        <h3>Login</h3>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            <label>Email</label>
+            <input name="email" type="text">
+            <br>
+            <label>Password</label>
+            <input name="password" type="text">
+            <br>
+            <button type="submit">Log In</button>
+        </form>
+        
+    </div>
+</body>
+</html>
